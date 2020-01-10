@@ -16,7 +16,7 @@ public class FindSilence : MonoBehaviour
         // the amount of quarter notes judge silence
         int sustain_beats = 3;
 
-        // buffer time in ms to measure signal response
+        // buffer time in sec to measure signal response
         float buffer = 0.150f;
 
         // fraction of the song to analyze
