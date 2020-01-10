@@ -11,24 +11,37 @@ public class FindSilence : MonoBehaviour
 
     int getRestartSample(AudioClip sound_file, float bpm)
     {
+        // hyper parameters (4) //
+
+        // the amount of quarter notes judge silence
+        int sustain_beats = 3;
+
+        // buffer time in ms to measure signal response
+        float buffer = 0.150f;
+
+        // fraction of the song to analyze
+        // helps avoid soft starts
+        float start_fraction = 0.5f;
+
+        // % of overall RMS to use as threshold
+        float threshold_pct = 0.01f;
+
+        // ------------------------------------------- //
+
         // read soundfile data
         float sample_rate = sound_file.frequency;
         int num_channels = sound_file.channels;
         int true_num_samples = sound_file.samples;
 
-        // calculate an good window size to test audio
-        // based on RMS meters in studio one (150 ms)
-
-        int window = (int)(0.150 * sample_rate);
+        // calculate window size in samples
+        int window = (int)(buffer * sample_rate);
 
         // convert sustain number of beats to time and samples
-        // comes from testing, works best with a variey of music
-        int sustainBeats = 3;
-        float sustainTime =  60f * sustainBeats / bpm;
+        float sustainTime =  60f * sustain_beats / bpm;
         int activity_threshold = (int) Mathf.Ceil(sustainTime * sample_rate);
 
         // grab source samples from 2nd half of song
-        int sample_offset = (int)Mathf.Floor(0.5f * true_num_samples);
+        int sample_offset = (int)Mathf.Floor(start_fraction * true_num_samples);
         float[] samples = new float[(true_num_samples - sample_offset) * num_channels];
         sound_file.GetData(samples, sample_offset);
         
@@ -43,11 +56,10 @@ public class FindSilence : MonoBehaviour
         }
 
         // Use the mean power to gauge an approximate power threshold
-        // I chose 1%, working with the most songs I tested
         float mean_power = sum_power / num_samples;
-        float power_threshold = 0.01f * mean_power;
+        float power_threshold = threshold_pct * mean_power;
 
-        // reset SSA for silence detection
+        // reset measures for silence detection
         sum_power = 0;
         mean_power = 0;
 
@@ -117,8 +129,9 @@ public class FindSilence : MonoBehaviour
                 Debug.Log("Threshold Reached for Full Sustain Time. The time interval is " + startingTime + " to " + endingTime + " sec.");
 
                 // snap to nearest whole bar number and convert to the appropriate number of samples
-                start_sample = Mathf.RoundToInt(Mathf.RoundToInt(startingTime * bpm / (4f * 60f)) * 4f * 60f * sample_rate / bpm);
-                Debug.Log("Start Replay At " + start_sample + " samples.");
+                int starting_bars = Mathf.RoundToInt(startingTime * bpm / (4f * 60f));
+                start_sample = Mathf.RoundToInt( starting_bars * 4f * 60f * sample_rate / bpm);
+                Debug.Log("Start replay at bar " + starting_bars + " (" + start_sample + " samples or " + startingTime + " sec)");
 
                 break;
             }
