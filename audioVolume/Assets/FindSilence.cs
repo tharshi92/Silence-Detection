@@ -80,7 +80,7 @@ public class FindSilence : MonoBehaviour
         int start_sample = 0;
 
         // RMS = sqrt(SSA/num_points), volume = 20log10(RMS)
-        // this is expensive so compare RMS^2 = SSA/num_points intead
+        // this is expensive so compare RMS^2 = SSA/num_points instead
 
         // step through song calculating SSA
         for (int i = 0; i < Mathf.Floor(num_samples - window + 1); i++)
