@@ -55,17 +55,20 @@ public class FindSilence : MonoBehaviour
         int num_quiet_steps = 0;
 
         // some info
-        Debug.Log("Sample Rate = " + sample_rate + " samples/sec.");
-        Debug.Log("Number of samples = " + true_num_samples);
-        Debug.Log("Sample Offset = " + sample_offset);
-        Debug.Log("Number of Channels = " + num_channels);
-        Debug.Log("Window Size, in samples = " + window);
-        Debug.Log("Sustain Time in sec = " + sustainTime);
-        Debug.Log("Activity Threshold in Samples = " + activity_threshold);
+        //Debug.Log("Sample Rate = " + sample_rate + " samples/sec.");
+        //Debug.Log("Number of samples = " + true_num_samples);
+        //Debug.Log("Sample Offset = " + sample_offset);
+        //Debug.Log("Number of Channels = " + num_channels);
+        //Debug.Log("Window Size, in samples = " + window);
+        Debug.Log("Required sustain in sec = " + sustainTime);
+        //Debug.Log("Activity Threshold in Samples = " + activity_threshold);
         Debug.Log("Start Analysis..........");
 
         bool found_silence = false;
         int start_sample = 0;
+
+        // RMS = sqrt(SSA/num_points), volume = 20log10(RMS)
+        // this is expensive so compare RMS^2 = SSA/num_points intead
 
         // step through song calculating SSA
         for (int i = 0; i < Mathf.Floor(num_samples - window + 1); i++)
@@ -82,7 +85,7 @@ public class FindSilence : MonoBehaviour
             }
             else
             {
-                // remove uneeded contribution to SSM and add new contribution
+                // remove uneeded contribution to SSA and add new contribution
                 for (int j = 0; j < num_channels; j++)
                 {
                     sum_power -= samples[(i - 1) * num_channels + j] * samples[(i - 1) * num_channels + j];
