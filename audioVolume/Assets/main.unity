@@ -212,8 +212,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bce7dd4c00b57344493928725dd5f01e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
   source: {fileID: 1007088317}
+  sound_file: {fileID: 0}
   bpm: 136
+  sample_offset: 0
+  sample_rate: 0
+  average_ssa: 0
+  sum_power: 0
+  mean_power: 0
+  sustainTime: 0
+  num_samples: 0
+  num_channels: 0
+  window: 0
+  idx: 0
+  num_quiet_steps: 0
+  activity_threshold: 0
+  found_silence: 0
+  start_sample: 0
+  samples: []
+  power_threshold: 0
   sustainBeats: 3
 --- !u!82 &1007088317
 AudioSource:
@@ -341,6 +370,7 @@ MonoBehaviour:
   bpm: 128
   numSustainBeats: 0
   thresholdPercentage: 0
+  printStats: 0
 --- !u!1 &1743640208
 GameObject:
   m_ObjectHideFlags: 0
@@ -370,10 +400,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efc561f0fdc2434439c3888d866960cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sound_file: {fileID: 8300000, guid: 07550fd3489bc6048845d676ec29c1f3, type: 3}
-  bpm: 72
+  sound_file: {fileID: 8300000, guid: fbb2b88a501a1ab4583ce3289e57102a, type: 3}
+  bpm: 86
   numSustainBeats: 3
   thresholdPercentage: 0.05
+  printStats: 0
 --- !u!4 &1743640211
 Transform:
   m_ObjectHideFlags: 0

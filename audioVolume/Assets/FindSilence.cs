@@ -16,6 +16,7 @@ public class FindSilence : MonoBehaviour
     public float bpm;
     public int numSustainBeats;
     public float thresholdPercentage;
+    public bool printStats;
 
     // Start is called before the first frame update
 
@@ -36,7 +37,7 @@ public class FindSilence : MonoBehaviour
         float start_fraction = 0.0f;
 
         // % of overall sound levels to use as threshold
-        // (default to 0.01, which is 1%)
+        // (default to 0.01, keep it from 0.01 to 0.075 for best results)
         float threshold_pct = thresholdPercentage;
 
         // ------------------------------------------- //
@@ -81,13 +82,17 @@ public class FindSilence : MonoBehaviour
         int num_quiet_steps = 0;
 
         // some info
-        //Debug.Log("Sample Rate = " + sample_rate + " samples/sec.");
-        //Debug.Log("Number of samples = " + true_num_samples);
-        //Debug.Log("Sample Offset = " + sample_offset);
-        //Debug.Log("Number of Channels = " + num_channels);
-        //Debug.Log("Window Size, in samples = " + window);
-        Debug.Log("Minimum sustain: " + sustain_time + " sec.");
-        //Debug.Log("Activity Threshold in Samples = " + activity_threshold);
+        if (printStats)
+        {
+            Debug.Log("Sample Rate = " + sample_rate + " samples/sec.");
+            Debug.Log("Number of samples = " + true_num_samples);
+            Debug.Log("Sample Offset = " + sample_offset);
+            Debug.Log("Number of Channels = " + num_channels);
+            Debug.Log("Window Size, in samples = " + window);
+            Debug.Log("Activity Threshold in Samples = " + activity_threshold);
+            Debug.Log("Minimum sustain: " + sustain_time + " sec.");
+        }
+
         Debug.Log("Start Analysis..........");
 
         // set up return objects
@@ -154,6 +159,18 @@ public class FindSilence : MonoBehaviour
         }
         else
         {
+            if (printStats)
+            {
+                Debug.Log("All Silences and Lengths");
+                for (int i = 0; i < silences.Count; i++)
+                {
+                    if (i % 1000 == 0)
+                    {
+                        Debug.Log(silences[i].startTime + "  sec, " + silences[i].threshold / sample_rate + " sec sustain");
+                    }
+                }
+            }
+
 
             // "silences" are already sorted, remove early "silences" from list
             float max_time = silences[silences.Count - 1].startTime;
