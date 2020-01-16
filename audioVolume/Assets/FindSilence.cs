@@ -159,17 +159,17 @@ public class FindSilence : MonoBehaviour
         }
         else
         {
-            if (printStats)
-            {
-                Debug.Log("All Silences and Lengths");
-                for (int i = 0; i < silences.Count; i++)
-                {
-                    if (i % 1000 == 0)
-                    {
-                        Debug.Log(silences[i].startTime + "  sec, " + silences[i].threshold / sample_rate + " sec sustain");
-                    }
-                }
-            }
+            // if (printStats)
+            // {
+            //     Debug.Log("All Silences and Lengths");
+            //     for (int i = 0; i < silences.Count; i++)
+            //     {
+            //         if (i % 1000 == 0)
+            //         {
+            //             Debug.Log(silences[i].startTime + "  sec, " + silences[i].threshold / sample_rate + " sec sustain");
+            //         }
+            //     }
+            // }
 
 
             // "silences" are already sorted, remove early "silences" from list
