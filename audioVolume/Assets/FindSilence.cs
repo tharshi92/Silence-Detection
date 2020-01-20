@@ -82,16 +82,14 @@ public class FindSilence : MonoBehaviour
         int num_quiet_steps = 0;
 
         // some info
-        if (printStats)
-        {
-            Debug.Log("Sample Rate = " + sample_rate + " samples/sec.");
-            Debug.Log("Number of samples = " + true_num_samples);
-            Debug.Log("Sample Offset = " + sample_offset);
-            Debug.Log("Number of Channels = " + num_channels);
-            Debug.Log("Window Size, in samples = " + window);
-            Debug.Log("Activity Threshold in Samples = " + activity_threshold);
-            Debug.Log("Minimum sustain: " + sustain_time + " sec.");
-        }
+        Debug.Log("Sample Rate = " + sample_rate + " samples/sec.");
+        Debug.Log("Number of samples = " + true_num_samples);
+        Debug.Log("Sample Offset = " + sample_offset);
+        Debug.Log("Number of Channels = " + num_channels);
+        Debug.Log("Window Size, in samples = " + window);
+        Debug.Log("Activity Threshold in Samples = " + activity_threshold);
+        Debug.Log("Minimum sustain: " + sustain_time + " sec.");
+
 
         Debug.Log("Start Analysis..........");
 
@@ -159,17 +157,17 @@ public class FindSilence : MonoBehaviour
         }
         else
         {
-            // if (printStats)
-            // {
-            //     Debug.Log("All Silences and Lengths");
-            //     for (int i = 0; i < silences.Count; i++)
-            //     {
-            //         if (i % 1000 == 0)
-            //         {
-            //             Debug.Log(silences[i].startTime + "  sec, " + silences[i].threshold / sample_rate + " sec sustain");
-            //         }
-            //     }
-            // }
+            if (printStats)
+            {
+                Debug.Log("All Silences and Lengths");
+                for (int i = 0; i < silences.Count; i++)
+                {
+                    if (i % 1000 == 0)
+                    {
+                        Debug.Log(silences[i].startTime + "  sec, " + silences[i].threshold / sample_rate + " sec sustain");
+                    }
+                }
+            }
 
 
             // "silences" are already sorted, remove early "silences" from list
