@@ -16,7 +16,7 @@ public class FindSilence : MonoBehaviour
     public float bpm;
     public int numSustainBeats;
     public float thresholdPercentage;
-    public bool printStats;
+    public bool pollSilence;
 
     // Start is called before the first frame update
 
@@ -157,7 +157,7 @@ public class FindSilence : MonoBehaviour
         }
         else
         {
-            if (printStats)
+            if (pollSilence)
             {
                 Debug.Log("All Silences and Lengths");
                 for (int i = 0; i < silences.Count; i++)
