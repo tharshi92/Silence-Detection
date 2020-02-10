@@ -36,7 +36,7 @@ public class FindSilence : MonoBehaviour
         float start_fraction = 0.0f;
 
         // % of overall sound levels to use as threshold
-        // (default to 0.01, keep it from 0.01 to 0.075 for best results)
+        // (default to 0.01, keep it from 0.005 to 0.075 for best results)
         float threshold_pct = thresholdPercentage;
 
         // ------------------------------------------- //
@@ -49,7 +49,11 @@ public class FindSilence : MonoBehaviour
         // calculate window size in samples
         int window = (int)(buffer * sample_rate);
 
-        // grab source samples from 2nd half of song
+        // ------------------------------------------- //
+
+        // calculating a baseline RMS^2 threshold //
+        
+        // grab source samples from segment of song 
         int sample_offset = (int)Mathf.Floor(start_fraction * true_num_samples);
         float[] samples = new float[(true_num_samples - sample_offset) * num_channels];
         sound_file.GetData(samples, sample_offset);
@@ -71,6 +75,8 @@ public class FindSilence : MonoBehaviour
         // reset measures for "silence" detection
         sum_power = 0;
         mean_power = 0;
+
+        // ------------------------------------------- //
 
         // set up return objects
         var silences = new List<Silence>();
@@ -154,6 +160,8 @@ public class FindSilence : MonoBehaviour
 
             }
 
+            // ------------------------------------------- //
+
             // check if silences have been found
             if (silences.Count == 0)
             {
@@ -203,6 +211,8 @@ public class FindSilence : MonoBehaviour
             }
 
         }
+
+        // ------------------------------------------- //
 
         if (!foundSilence)
         {
